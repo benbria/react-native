@@ -24,7 +24,7 @@ const getBuildPath = function (configuration = 'Debug', appName, isDevice) {
     device = 'iphonesimulator';
   }
 
-  return `Build/Products/${configuration}-${device}/${appName}.app`;
+  return `build/Build/Products/${configuration}-${device}/${appName}.app`;
 };
 const xcprettyAvailable = function() {
   try {
@@ -128,9 +128,9 @@ Try closing the simulator or run the command again without specifying a simulato
     }
 
     buildProject(xcodeProject, selectedSimulator.udid, scheme, args.configuration, args.packager, args.verbose, args.port)
-      .then((appName) => resolve(selectedSimulator.udid, appName));
+      .then((appName) => resolve([selectedSimulator.udid, appName]));
   })
-  .then((udid, appName) => {
+  .then(([udid, appName]) => {
     if (!appName) {
       appName = scheme;
     }
